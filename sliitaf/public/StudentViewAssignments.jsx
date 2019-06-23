@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
 import axios from 'axios';
-
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 const Assignments = (props)=>(
     <tr>
-        <td>{props.ass.duedate}</td>
-        <td>{props.ass.file}</td>
-        <td>Select File</td>
+        <td>{props.assignments.duedate}</td>
+        <td>{props.assignments.file}</td>
+        <td>
+            <Link to={"/uploading"}>Upload</Link>
+        </td>
     </tr>
 );
 
@@ -16,26 +18,19 @@ export default class StudentViewAssignments extends Component {
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:3000/book/all').then((req,res)=>{
-        //     console.log(res.data);
-        //     res.send(res.data);
-        // });
-        this.getdata()
+        axios.get('http://localhost:8083/assignment/all').then(res=>{
+            this.setState({assignments:res.data});
+            console.log(res.data);
+        }).catch((err)=>{
+            console.log(err);
+        });
 
     }
-    getdata(){
-        axios.get('assignment/all')
-            .then(data => {// <== Change is her
-                console.log(data.data);
-                this.state.assignments.push(data.data);
-            })
-    }
-
 
     assignmentList()
     {
         return this.state.assignments.map((current,i)=>{
-            return <Assignments ass = {current} key={i}/>;
+            return <Assignments assignments = {current} key={i}/>;
 
         })
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import StudentViewAssignments from './StudentViewAssignments';
 import ViewMarks from './ViewMarks'
+import UpdateAnswer from './UpdateAnswer'
 export default class StudentJob extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +20,7 @@ export default class StudentJob extends React.Component {
                         <div>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/upload">Upload Assignments</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/vmarks">View Marks</Link></button>
+                            <Link to="/uploading"/>
                         </div>
                     </div>
                     <Route exact path="/upload" render={props => {
@@ -26,6 +28,9 @@ export default class StudentJob extends React.Component {
                     }}/>
                     <Route exact path="/vmarks" render={props => {
                         return <ViewMarks/>
+                    }}/>
+                    <Route exact path="/uploading" render={props => {
+                        return <UpdateAnswer/>
                     }}/>
                 </div>
             </Router>

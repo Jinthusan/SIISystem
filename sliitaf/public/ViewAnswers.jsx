@@ -1,11 +1,15 @@
 import React,{Component} from 'react';
 import axios from 'axios';
-
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 const Answers = (props)=>(
     <tr>
-        <td>{props.asw.file}</td>
-        <td>Marks</td>
+        <td>{props.answers.date}</td>
+        <td>{props.answers.file}</td>
+        <td>
+            <Link to={"/assignment"}>Grading</Link>
+        </td>
     </tr>
+
 );
 
 export default class ViewAnswers extends Component {
@@ -15,26 +19,19 @@ export default class ViewAnswers extends Component {
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:3000/book/all').then((req,res)=>{
-        //     console.log(res.data);
-        //     res.send(res.data);
-        // });
-        this.getdata()
-
-    }
-    getdata(){
-        axios.get('assignment/all')
-            .then(data => {// <== Change is her
-                console.log(data.data);
-                this.state.answers.push(data.data);
-            })
+        axios.get('http://localhost:8083/studentanswer/all').then(res=>{
+            this.setState({answers:res.data});
+            console.log(res.data);
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
 
 
-    answersList()
+    answerList()
     {
         return this.state.answers.map((current,i)=>{
-            return <Answers asw = {current} key={i}/>;
+            return <Answers answers = {current} key={i}/>;
 
         })
 
@@ -44,16 +41,17 @@ export default class ViewAnswers extends Component {
         console.log(this.state);
         return(
             <div>
-                <h3>Answers List</h3>
+                <h3>Answers</h3>
                 <table className="table table-striped" style={{marginTop:20}}>
                     <thead>
                     <tr>
+                        <th>Submitted Date</th>
                         <th>File Name</th>
-                        <th>Marking</th>
+                        <th>Grade</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {this.answersList()}
+                    {this.answerList()}
                     </tbody>
                 </table>
             </div>

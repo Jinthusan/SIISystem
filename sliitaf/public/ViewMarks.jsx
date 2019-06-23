@@ -8,7 +8,7 @@ const Marks = (props)=>(
     </tr>
 );
 
-export default class StudentViewAssignments extends Component {
+export default class ViewMarks extends Component {
     constructor(props){
         super(props);
         this.state={grades:[]}

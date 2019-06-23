@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import CreateAssignment from './CreateAssignment';
-import ViewAssignments from './ViewAssignments';
-import ViewAnswers from './ViewAnswers';
+import ViewAssignments from './ViewAssignments'
+import ViewAnswers from './ViewAnswers'
+import UpdateAssignment from './UpdateAssignment';
 export default class InstructorJob extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +22,7 @@ export default class InstructorJob extends React.Component {
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/assignment">New Assignment</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viwass">View Assignments</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viewans">View Answers</Link></button>
+                            <Link to="/edit/"/>
                         </div>
                     </div>
                     <Route exact path="/assignment" render={props => {
@@ -31,6 +33,9 @@ export default class InstructorJob extends React.Component {
                     }}/>
                     <Route exact path="/viewans" render={props => {
                         return <ViewAnswers/>
+                    }}/>
+                    <Route exact path="/edit/" render={props => {
+                        return <UpdateAssignment/>
                     }}/>
                 </div>
             </Router>

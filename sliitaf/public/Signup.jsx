@@ -4,8 +4,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import { useAlert, positions } from 'react-alert'
-export default class Signup extends Component {
+import ReactDOM from 'react-dom'
+import CreateInstructor from "./AdminJob";
+import Login from './Login';
+export default class Signup extends React.Component {
     constructor(props) {
         super(props);
         this.onChangeemail = this.onChangeemail.bind(this);
@@ -57,8 +59,18 @@ export default class Signup extends Component {
             role:this.state.role,
             password:this.state.password
         }
-        axios.post('http://localhost:8083/user/add',newuser).then(res=>console.log(res.data));
-        
+        axios.post('http://localhost:8083/user/add',newuser).then(res=>{
+            alert('Successfull'+JSON.stringify(res.data));
+            if (res)
+            {
+                console.log(res);
+                ReactDOM.render(<Login/>,document.getElementById('root'));
+            }
+            else
+            {
+                return res.status(500).json({message: 'Error'});
+            }
+        });
         this.setState({
             email: '',
             role: '',
@@ -71,8 +83,7 @@ export default class Signup extends Component {
         return (
             <div style={{"marginTop": 20}}>
                 <Router>
-                <h3>Signup Form</h3>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} id={'root'}>
                     <div className={"form-group"}>
                         <h6>Email</h6>
                         <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeemail}/>
@@ -89,4 +100,6 @@ export default class Signup extends Component {
             </div>
         );
     }
+
 }
+

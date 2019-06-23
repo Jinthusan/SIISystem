@@ -84,11 +84,21 @@ const InstructorUploadSchema=new Schema({
         type:String
     }
 });
+const AnswerUploadSchema=new Schema({
+    file:{
+        type:String,
+        required:true
+    },
+    date:{
+        type:String
+    }
+});
 mongoose.model('Course',CourseSchema);
 mongoose.model('Admin',AdminSchema);
 mongoose.model('Instructor',InstructorSchema);
 mongoose.model('Signup',SignupSchema);
 mongoose.model('InsAssignments',InstructorUploadSchema);
+mongoose.model('StudentAnswers',AnswerUploadSchema);
 
 mongoose.connect('mongodb://localhost:27017/SliitCourseWeb',(err)=>{
     if(err)
