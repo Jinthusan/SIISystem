@@ -24,6 +24,18 @@ var AnswerController=function () {
             })
         })
     }
+
+    this.update = (_id,data)=>{
+        return new Promise((resolve,reject)=>{
+            IAnswerUploadSchema.update({_id:_id},data).then(()=>{
+                resolve({status: 200,message:"Give Marks"});
+            }).catch(err=>{
+                reject({status:500,message:"Error:-" + err});
+            })
+        })
+    }
 };
+
+
 
 module.exports=new AnswerController();

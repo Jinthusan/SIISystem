@@ -57,7 +57,7 @@ export default class CreateCourse extends Component {
             if (res) {
                 alert('New admin added successfully!');
                 console.log(res);
-                ReactDOM.render(<vadmins/>, document.getElementById('root'));
+               // ReactDOM.render(<vadmins/>, document.getElementById('root'));
             } else {
                 alert('Adding new admin is failed.Please try again!');
                 return res.status(500).json({message: 'Error'});

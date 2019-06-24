@@ -25,6 +25,17 @@ var AssignmentUploadController=function () {
             })
         })
     }
+
+
+    this.update = (_id,data)=>{
+        return new Promise((resolve,reject)=>{
+            InstructorUploadSchema.update({_id:_id},data).then(()=>{
+                resolve({status: 200,message:"Updated the Assignment"});
+            }).catch(err=>{
+                reject({status:500,message:"Error:-" + err});
+            })
+        })
+    }
 };
 
 module.exports=new AssignmentUploadController();

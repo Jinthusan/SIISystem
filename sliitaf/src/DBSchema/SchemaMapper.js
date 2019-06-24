@@ -47,125 +47,6 @@ const AdminSchema=new Schema({
         required:true
     }
 });
-
-
-
-const ExamSchema=mongoose.Schema({
-
-    _id:mongoose.Schema.Types.ObjectId,
-
-    examID: {
-        type: String,
-        required: true,
-        unique:true
-    },
-
-    moduleCode:{
-        type:String,
-    },
-
-    moduleName:{
-        type:String,
-        required:true
-    },
-
-    examDay:{
-        type:Date,
-        required:true
-    }
-
-});
-
-const Notification = new schema ({
-
-    from: {
-        type : String,
-        required : true
-    },
-    to: {
-        type : String,
-        required : true
-    },
-    action: {
-        type : String,
-        required : true
-    },
-    courseName: {
-        type : String,
-
-    },
-    assignmentName: {
-        type : String,
-
-    },
-    date: {
-        type : Date,
-        required : true
-    }
-})
-
-const Assignment = new schema ({
-
-    dueDate: {
-        type : String,
-        required : true
-    },
-    instructorUsername: {
-        type : String,
-        required : true
-    },
-    courseName: {
-        type : String,
-        required : true
-    },
-    name : {
-        type : String,
-        required : true
-    }
-})
-
-const Submission = new schema ({
-
-    assignmentName: {
-        type : String,
-        required : true
-    },
-    studentUsername: {
-        type : String,
-        required : true
-    },
-    dateSubmitted: {
-        type : String,
-        required : true
-    },
-    fileName : {
-        type : String,
-        required : true
-    }
-})
-
-const Marks = new schema ({
-
-    assignmentName: {
-        type : String,
-        required : true
-    },
-    studentUsername: {
-        type : String,
-        required : true
-    },
-    instructorUsername: {
-        type : String,
-        required : true
-    },
-    mark: {
-        type : Number,
-        required : true
-    }
-})
-
-
-
 const InstructorSchema=new Schema({
     instructor_name:{
         type:String,
@@ -218,21 +99,16 @@ const AnswerUploadSchema=new Schema({
         type:String,
         required:true
     },
-    date:{
+    marks:{
         type:String
     }
 });
 mongoose.model('Course',CourseSchema);
-mongoose.model('Exam',ExamSchema)
 mongoose.model('Admin',AdminSchema);
 mongoose.model('Instructor',InstructorSchema);
 mongoose.model('Signup',SignupSchema);
 mongoose.model('InsAssignments',InstructorUploadSchema);
 mongoose.model('StudentAnswers',AnswerUploadSchema);
-mongoose.model('Marks',Marks);
-mongoose.model('Submission',Submission);
-mongoose.model('Assignment',Assignment);
-mongoose.model('Notification',Notification);
 
 mongoose.connect('mongodb://localhost:27017/SliitCourseWeb',(err)=>{
     if(err)

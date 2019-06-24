@@ -7,10 +7,11 @@ const Assignments = (props)=>(
         <td>{props.assignments.file}</td>
         <td>{props.assignments.comments}</td>
         <td>
-            <Link to={"/assignment"}>Edit</Link>
+            <Link to={"/edit/"}>Edit</Link>
+
         </td>
     </tr>
-
+// <Link to={"/edit/"+props.assignments._id}>Edit</Link>
 );
 
 export default class ViewAssignments extends Component {

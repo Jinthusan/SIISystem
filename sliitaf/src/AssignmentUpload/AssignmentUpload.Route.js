@@ -18,4 +18,18 @@ router.route('/all').get(function(req,res){
     })
 });
 
+router.route('/:_id').put(function (req,res) {
+    Controller.update(req.params._id,req.body).then(function (data) {
+        res.status(data.status).send(
+            {
+                data:data.message
+            }
+        );
+    }).catch(error=>{
+        res.status(error.status).send({
+            message:error.message
+        })
+    })
+});
+
 module.exports=router;
