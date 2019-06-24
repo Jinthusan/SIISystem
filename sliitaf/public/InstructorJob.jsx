@@ -3,8 +3,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import CreateAssignment from './CreateAssignment';
 import ViewAssignments from './ViewAssignments'
 import ViewAnswers from './ViewAnswers'
-import UpdateAssignment from './UpdateAssignment';
-import GiveMarks from  './GiveMarks'
+import CreateExam from './CreateExam'
 export default class InstructorJob extends React.Component {
     constructor(props) {
         super(props);
@@ -23,8 +22,8 @@ export default class InstructorJob extends React.Component {
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/assignment">New Assignment</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viwass">View Assignments</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viewans">View Answers</Link></button>
-                            <Link to="/edit/"/>
-                            <Link to="/marks/"/>
+                            <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/exam">Create Exam</Link></button>
+
                         </div>
                     </div>
                     <Route exact path="/assignment" render={props => {
@@ -36,11 +35,8 @@ export default class InstructorJob extends React.Component {
                     <Route exact path="/viewans" render={props => {
                         return <ViewAnswers/>
                     }}/>
-                    <Route exact path="/edit/" render={props => {
-                        return <UpdateAssignment/>
-                    }}/>
-                    <Route exact path="/marks/" render={props => {
-                        return <GiveMarks/>
+                    <Route exact path="/exam" render={props => {
+                        return <CreateExam/>
                     }}/>
                 </div>
             </Router>

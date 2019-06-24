@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { useAlert, positions } from 'react-alert'
 import ReactDOM from "react-dom";
 import Login from "./CreateCourse";
-export default class CreateInstructor extends Component {
+export default class CreateCourse extends Component {
     constructor(props) {
         super(props);
         this.onChangefaculty = this.onChangefaculty.bind(this);
@@ -57,7 +57,7 @@ export default class CreateInstructor extends Component {
             if (res) {
                 alert('New instructor added successfully!');
                 console.log(res);
-                // ReactDOM.render(<vinstructors/>, document.getElementById('root'));
+                ReactDOM.render(<vinstructors/>, document.getElementById('root'));
             } else {
                 alert('Adding new instructor is failed.Please try again!');
                 return res.status(500).json({message: 'Error'});

@@ -72,7 +72,7 @@ export default class CreateCourse extends Component {
             if (res) {
                 alert('New course added successfully!');
                 console.log(res);
-               // ReactDOM.render(<ViewCourses/>, document.getElementById('root'));
+                ReactDOM.render(<ViewCourses/>, document.getElementById('root'));
             } else {
                 alert('Adding new course is failed.Please try again!');
                 return res.status(500).json({message: 'Error'});

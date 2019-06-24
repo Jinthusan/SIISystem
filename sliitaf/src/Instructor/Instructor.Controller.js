@@ -10,37 +10,7 @@ var InstructorController=function () {
                 email: data.email,
                 faculty: data.faculty
             });
-            instructor.save().then(result=>{
-                //send email to instructor email
-                const transporter=nodemailer.createTransport({
-                    service:'gmail',
-                    auth:{
-                        user:'siiscw@gmail.com',
-                        pass:'vmqlfjlscupklycy'
-                    }
-                });
-
-                const mailOptions={
-                    from:'',
-                    to:instructor.instructor_email,
-                    subject:'Welcome '+ instructor.instructor_name +' to Student Information System!',
-                    html:'Hi! '+instructor.instructor_name +', <br/> '+ 'Welcome to Student Information System. We warmly welcome our instructor!<br/> Thanks and Best Regards,<br/>Admin'
-                };
-
-                transporter.sendMail(mailOptions,(error,info)=>{
-                    if(error){
-                        console.log(error);
-                    }else{
-                        console.log('Email sent:'+info.response);
-                    }
-                });
-                transporter.sendMail(mailOptions,(error,info)=>{
-                    if(error){
-                        console.log(error);
-                    }else{
-                        console.log('Email sent:'+info.response);
-                    }
-                });
+            instructor.save().then(()=>{
                 resolve({status:200,message:"new instructor added successfully"});
             }).catch(err=>{
                 reject({status:500,message:"Error:-"+err});

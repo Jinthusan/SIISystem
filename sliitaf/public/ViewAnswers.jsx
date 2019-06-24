@@ -6,7 +6,7 @@ const Answers = (props)=>(
         <td>{props.answers.date}</td>
         <td>{props.answers.file}</td>
         <td>
-            <Link to={"/marks/"}>Grading</Link>
+            <Link to={"/assignment"}>Grading</Link>
         </td>
     </tr>
 

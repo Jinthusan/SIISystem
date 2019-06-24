@@ -28,26 +28,6 @@ var CourseController=function () {
             })
         })
     }
-
-    this.search = (id) => {
-        return new Promise((resolve, reject) => {
-            CourseSchema.find({_id:id}).exec().then(user => {
-                resolve({status: 200, data: user});
-            }).catch(err => {
-                reject({status: 500, message: "Error:- " + err});
-            })
-        })
-    }
-
-    this.update = (id, data) => {
-        return new Promise((resolve, reject) => {
-            CourseSchema.update({_id: id}, data).then(() => {
-                resolve({status: 200, message: "update user"});
-            }).catch(err => {
-                reject({status: 500, message: "Error:- " + err});
-            })
-        })
-    }
 }
 
 module.exports=new CourseController();
