@@ -31406,7 +31406,433 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"../node_modules/@babel/runtime/helpers/interopRequireDefault.js":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"ViewCourses.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Courses = function Courses(props) {
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.courses.faculty), _react.default.createElement("td", null, props.courses.year), _react.default.createElement("td", null, props.courses.semester), _react.default.createElement("td", null, props.courses.module_name), _react.default.createElement("td", null, props.courses.instructor), _react.default.createElement("td", null, props.courses.enroll), _react.default.createElement("td", null, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/course"
+  }, "Edit")));
+};
+
+var ViewCourses =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ViewCourses, _Component);
+
+  function ViewCourses(props) {
+    var _this;
+
+    _classCallCheck(this, ViewCourses);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ViewCourses).call(this, props));
+    _this.state = {
+      courses: []
+    };
+    return _this;
+  }
+
+  _createClass(ViewCourses, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios.default.get('http://localhost:8083/course/all').then(function (res) {
+        _this2.setState({
+          courses: res.data
+        });
+
+        console.log(res.data);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "courseList",
+    value: function courseList() {
+      return this.state.courses.map(function (current, i) {
+        return _react.default.createElement(Courses, {
+          courses: current,
+          key: i
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Courses"), _react.default.createElement("table", {
+        className: "table table-striped",
+        style: {
+          marginTop: 20
+        }
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Faculty"), _react.default.createElement("th", null, "Year"), _react.default.createElement("th", null, "Semester"), _react.default.createElement("th", null, "Module Name"), _react.default.createElement("th", null, "Instructor Name"), _react.default.createElement("th", null, "Enrollment Key"), _react.default.createElement("th", null, "Editing"))), _react.default.createElement("tbody", null, this.courseList())));
+    }
+  }]);
+
+  return ViewCourses;
+}(_react.Component);
+
+exports.default = ViewCourses;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"CreateCourse.jsx":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+require("bootstrap/dist/css/bootstrap.min.css");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _ViewCourses = _interopRequireDefault(require("./ViewCourses"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var CreateCourse =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(CreateCourse, _Component);
+
+  function CreateCourse(props) {
+    var _this;
+
+    _classCallCheck(this, CreateCourse);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateCourse).call(this, props));
+    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
+    _this.onChangeyear = _this.onChangeyear.bind(_assertThisInitialized(_this));
+    _this.onChangesemester = _this.onChangesemester.bind(_assertThisInitialized(_this));
+    _this.onChangemodule = _this.onChangemodule.bind(_assertThisInitialized(_this));
+    _this.onChangeinstructor = _this.onChangeinstructor.bind(_assertThisInitialized(_this));
+    _this.onChangeenroll = _this.onChangeenroll.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      faculty: '',
+      year: '',
+      semester: '',
+      module_name: '',
+      instructor: '',
+      enroll: ''
+    };
+    return _this;
+  }
+
+  _createClass(CreateCourse, [{
+    key: "onChangefaculty",
+    value: function onChangefaculty(e) {
+      this.setState({
+        faculty: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeyear",
+    value: function onChangeyear(e) {
+      this.setState({
+        year: e.target.value
+      });
+    }
+  }, {
+    key: "onChangesemester",
+    value: function onChangesemester(e) {
+      this.setState({
+        semester: e.target.value
+      });
+    }
+  }, {
+    key: "onChangemodule",
+    value: function onChangemodule(e) {
+      this.setState({
+        module_name: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeinstructor",
+    value: function onChangeinstructor(e) {
+      this.setState({
+        instructor: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeenroll",
+    value: function onChangeenroll(e) {
+      this.setState({
+        enroll: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      e.preventDefault();
+      var newcourse = {
+        faculty: this.state.faculty,
+        year: this.state.year,
+        semester: this.state.semester,
+        module_name: this.state.module_name,
+        instructor: this.state.instructor,
+        enroll: this.state.enroll
+      };
+
+      _axios.default.post('http://localhost:8083/course/add', newcourse).then(function (res) {
+        if (res) {
+          alert('New course added successfully!');
+          console.log(res); // ReactDOM.render(<ViewCourses/>, document.getElementById('root'));
+        } else {
+          alert('Adding new course is failed.Please try again!');
+          return res.status(500).json({
+            message: 'Error'
+          });
+        }
+      });
+
+      this.setState({
+        faculty: '',
+        year: '',
+        semester: '',
+        module_name: '',
+        instructor: '',
+        enroll: ''
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        style: {
+          "marginTop": 20
+        }
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "New Course"), _react.default.createElement("form", {
+        onSubmit: this.onSubmit
+      }, _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("h6", null, "Faculty"), _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "computing",
+        value: "Computing",
+        checked: this.state.faculty === "Computing",
+        onChange: this.onChangefaculty,
+        required: true
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Computing")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "business",
+        value: "Business",
+        checked: this.state.faculty === "Business",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Business")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "engineering",
+        value: "Engineering",
+        checked: this.state.faculty === "Engineering",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Engineering")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "HumanitiesAndSciences",
+        value: "HumanitiesAndSciences",
+        checked: this.state.faculty === "HumanitiesAndSciences",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Humanities And Sciences"))), _react.default.createElement("h6", null, "Year"), _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "year",
+        id: "year1",
+        value: "1st",
+        checked: this.state.year === "1st",
+        onChange: this.onChangeyear,
+        required: true
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "1st Year")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "year",
+        id: "year2",
+        value: "2nd",
+        checked: this.state.year === "2nd",
+        onChange: this.onChangeyear
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "2nd Year")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "year",
+        id: "year3",
+        value: "3rd",
+        checked: this.state.year === "3rd",
+        onChange: this.onChangeyear
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "3rd Year")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "year",
+        id: "year4",
+        value: "4th",
+        checked: this.state.year === "4th",
+        onChange: this.onChangeyear
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "4th Year"))), _react.default.createElement("h6", null, "Semester"), _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "semester",
+        id: "semester1",
+        value: "1st",
+        checked: this.state.semester === "1st",
+        onChange: this.onChangesemester,
+        required: true
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "1st Semester")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "semester",
+        id: "semester2",
+        value: "2nd",
+        checked: this.state.semester === "2nd",
+        onChange: this.onChangesemester
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "2nd Semester"))), _react.default.createElement("h6", null, "Module Name"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.module_name,
+        onChange: this.onChangemodule,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Instructor Name"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.instructor,
+        onChange: this.onChangeinstructor,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Enrollment Key"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.enroll,
+        onChange: this.onChangeenroll,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Save"), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Cancel")))));
+    }
+  }]);
+
+  return CreateCourse;
+}(_react.Component);
+
+exports.default = CreateCourse;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-dom":"../node_modules/react-dom/index.js","./ViewCourses":"ViewCourses.jsx"}],"../node_modules/@babel/runtime/helpers/interopRequireDefault.js":[function(require,module,exports) {
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -33772,7 +34198,7 @@ var withAlert = function withAlert() {
 };
 
 exports.withAlert = withAlert;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-transition-group":"../node_modules/react-transition-group/index.js","react-dom":"../node_modules/react-dom/index.js"}],"CreateCourse.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-transition-group":"../node_modules/react-transition-group/index.js","react-dom":"../node_modules/react-dom/index.js"}],"CreateInstructor.jsx":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -33790,537 +34216,9 @@ var _reactRouterDom = require("react-router-dom");
 
 var _reactAlert = require("react-alert");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactDom = _interopRequireDefault(require("react-dom"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var CreateCourse =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(CreateCourse, _Component);
-
-  function CreateCourse(props) {
-    var _this;
-
-    _classCallCheck(this, CreateCourse);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateCourse).call(this, props));
-    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
-    _this.onChangeyear = _this.onChangeyear.bind(_assertThisInitialized(_this));
-    _this.onChangesemester = _this.onChangesemester.bind(_assertThisInitialized(_this));
-    _this.onChangemodule = _this.onChangemodule.bind(_assertThisInitialized(_this));
-    _this.onChangeinstructor = _this.onChangeinstructor.bind(_assertThisInitialized(_this));
-    _this.onChangeenroll = _this.onChangeenroll.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.state = {
-      faculty: '',
-      year: '',
-      semester: '',
-      module_name: '',
-      instructor: '',
-      enroll: '' // this.state = {
-      //     redirect: false
-      // }
-      // this.setRedirect = () => {
-      //     this.setState({
-      //         redirect: true
-      //     })
-      // }
-      // this.renderRedirect = () => {
-      //     if (this.state.redirect) {
-      //         return <Redirect to='/target' />
-      //   onClick={this.setRedirect}
-      //     }
-      // }
-
-    };
-    return _this;
-  }
-
-  _createClass(CreateCourse, [{
-    key: "onChangefaculty",
-    value: function onChangefaculty(e) {
-      this.setState({
-        faculty: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeyear",
-    value: function onChangeyear(e) {
-      this.setState({
-        year: e.target.value
-      });
-    }
-  }, {
-    key: "onChangesemester",
-    value: function onChangesemester(e) {
-      this.setState({
-        semester: e.target.value
-      });
-    }
-  }, {
-    key: "onChangemodule",
-    value: function onChangemodule(e) {
-      this.setState({
-        module_name: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeinstructor",
-    value: function onChangeinstructor(e) {
-      this.setState({
-        instructor: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeenroll",
-    value: function onChangeenroll(e) {
-      this.setState({
-        enroll: e.target.value
-      });
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
-      e.preventDefault();
-      var newcourse = {
-        faculty: this.state.faculty,
-        year: this.state.year,
-        semester: this.state.semester,
-        module_name: this.state.module_name,
-        instructor: this.state.instructor,
-        enroll: this.state.enroll
-      };
-
-      _axios.default.post('http://localhost:8083/course/add', newcourse).then(function (res) {
-        return console.log(res.data);
-      });
-
-      this.setState({
-        faculty: '',
-        year: '',
-        semester: '',
-        module_name: '',
-        instructor: '',
-        enroll: ''
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", {
-        style: {
-          "marginTop": 20
-        }
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "New Course"), _react.default.createElement("form", {
-        onSubmit: this.onSubmit
-      }, _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("h6", null, "Faculty"), _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "computing",
-        value: "Computing",
-        checked: this.state.faculty === "Computing",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Computing")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "business",
-        value: "Business",
-        checked: this.state.faculty === "Business",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Business")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "engineering",
-        value: "Engineering",
-        checked: this.state.faculty === "Engineering",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Engineering")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "HumanitiesAndSciences",
-        value: "HumanitiesAndSciences",
-        checked: this.state.faculty === "HumanitiesAndSciences",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Humanities And Sciences"))), _react.default.createElement("h6", null, "Year"), _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "year",
-        id: "year1",
-        value: "1st",
-        checked: this.state.year === "1st",
-        onChange: this.onChangeyear
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "1st Year")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "year",
-        id: "year2",
-        value: "2nd",
-        checked: this.state.year === "2nd",
-        onChange: this.onChangeyear
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "2nd Year")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "year",
-        id: "year3",
-        value: "3rd",
-        checked: this.state.year === "3rd",
-        onChange: this.onChangeyear
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "3rd Year")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "year",
-        id: "year4",
-        value: "4th",
-        checked: this.state.year === "4th",
-        onChange: this.onChangeyear
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "4th Year"))), _react.default.createElement("h6", null, "Semester"), _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "semester",
-        id: "semester1",
-        value: "1st",
-        checked: this.state.semester === "1st",
-        onChange: this.onChangesemester
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "1st Semester")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "semester",
-        id: "semester2",
-        value: "2nd",
-        checked: this.state.semester === "2nd",
-        onChange: this.onChangesemester
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "2nd Semester"))), _react.default.createElement("h6", null, "Module Name"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.module_name,
-        onChange: this.onChangemodule
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Instructor Name"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.instructor,
-        onChange: this.onChangeinstructor
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Enrollment Key"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.enroll,
-        onChange: this.onChangeenroll
-      }), _react.default.createElement("br", null), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Save"), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Cancel")))));
-    }
-  }]);
-
-  return CreateCourse;
-}(_react.Component);
-
-exports.default = CreateCourse;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"CreateAdmin.jsx":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-require("bootstrap/dist/css/bootstrap.min.css");
-
-var _reactRouterDom = require("react-router-dom");
-
-var _reactAlert = require("react-alert");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var CreateCourse =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(CreateCourse, _Component);
-
-  function CreateCourse(props) {
-    var _this;
-
-    _classCallCheck(this, CreateCourse);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateCourse).call(this, props));
-    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
-    _this.onChangeadmin_name = _this.onChangeadmin_name.bind(_assertThisInitialized(_this));
-    _this.onChangeadmin_empno = _this.onChangeadmin_empno.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.state = {
-      faculty: '',
-      admin_name: '',
-      admin_empno: '' // this.state = {
-      //     redirect: false
-      // }
-      // this.setRedirect = () => {
-      //     this.setState({
-      //         redirect: true
-      //     })
-      // }
-      // this.renderRedirect = () => {
-      //     if (this.state.redirect) {
-      //         return <Redirect to='/target' />
-      //   onClick={this.setRedirect}
-      //     }
-      // }
-
-    };
-    return _this;
-  }
-
-  _createClass(CreateCourse, [{
-    key: "onChangefaculty",
-    value: function onChangefaculty(e) {
-      this.setState({
-        faculty: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeadmin_name",
-    value: function onChangeadmin_name(e) {
-      this.setState({
-        admin_name: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeadmin_empno",
-    value: function onChangeadmin_empno(e) {
-      this.setState({
-        admin_empno: e.target.value
-      });
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
-      e.preventDefault();
-      var newadmin = {
-        faculty: this.state.faculty,
-        admin_name: this.state.admin_name,
-        admin_empno: this.state.admin_empno
-      };
-
-      _axios.default.post('http://localhost:8083/admin/add', newadmin).then(function (res) {
-        return console.log(res.data);
-      });
-
-      this.setState({
-        faculty: '',
-        admin_name: '',
-        admin_empno: ''
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", {
-        style: {
-          "marginTop": 20
-        }
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "New Admin"), _react.default.createElement("form", {
-        onSubmit: this.onSubmit
-      }, _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("h6", null, "Admin Name"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.admin_name,
-        onChange: this.onChangeadmin_name
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Employee ID"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.admin_empno,
-        onChange: this.onChangeadmin_empno
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Faculty"), _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "computing",
-        value: "Computing",
-        checked: this.state.faculty === "Computing",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Computing")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "business",
-        value: "Business",
-        checked: this.state.faculty === "Business",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Business")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "engineering",
-        value: "Engineering",
-        checked: this.state.faculty === "Engineering",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Engineering")), _react.default.createElement("div", {
-        className: "form-check form-check-inline"
-      }, _react.default.createElement("input", {
-        className: "form-check-input",
-        type: "radio",
-        name: "faculty",
-        id: "HumanitiesAndSciences",
-        value: "HumanitiesAndSciences",
-        checked: this.state.faculty === "HumanitiesAndSciences",
-        onChange: this.onChangefaculty
-      }), _react.default.createElement("label", {
-        className: "form-check-label"
-      }, "Humanities And Sciences"))), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Save"), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Cancel")))));
-    }
-  }]);
-
-  return CreateCourse;
-}(_react.Component);
-
-exports.default = CreateCourse;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"CreateInstructor.jsx":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-require("bootstrap/dist/css/bootstrap.min.css");
-
-var _reactRouterDom = require("react-router-dom");
-
-var _reactAlert = require("react-alert");
+var _CreateCourse = _interopRequireDefault(require("./CreateCourse"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34355,35 +34253,35 @@ function (_Component) {
     _classCallCheck(this, CreateInstructor);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateInstructor).call(this, props));
+    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
     _this.onChangeinstructor_name = _this.onChangeinstructor_name.bind(_assertThisInitialized(_this));
     _this.onChangeinstructor_empno = _this.onChangeinstructor_empno.bind(_assertThisInitialized(_this));
-    _this.onChangeinstructor_email = _this.onChangeinstructor_email.bind(_assertThisInitialized(_this));
-    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
+    _this.onChangeemail = _this.onChangeemail.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
       faculty: '',
       instructor_name: '',
-      instructor_empno: '',
-      instructor_email: '' // this.state = {
-      //     redirect: false
-      // }
-      // this.setRedirect = () => {
-      //     this.setState({
-      //         redirect: true
-      //     })
-      // }
-      // this.renderRedirect = () => {
-      //     if (this.state.redirect) {
-      //         return <Redirect to='/target' />
-      //   onClick={this.setRedirect}
-      //     }
-      // }
-
+      email: '',
+      instructor_empno: ''
     };
     return _this;
   }
 
   _createClass(CreateInstructor, [{
+    key: "onChangeemail",
+    value: function onChangeemail(e) {
+      this.setState({
+        email: e.target.value
+      });
+    }
+  }, {
+    key: "onChangefaculty",
+    value: function onChangefaculty(e) {
+      this.setState({
+        faculty: e.target.value
+      });
+    }
+  }, {
     key: "onChangeinstructor_name",
     value: function onChangeinstructor_name(e) {
       this.setState({
@@ -34398,39 +34296,33 @@ function (_Component) {
       });
     }
   }, {
-    key: "onChangeinstructor_email",
-    value: function onChangeinstructor_email(e) {
-      this.setState({
-        instructor_email: e.target.value
-      });
-    }
-  }, {
-    key: "onChangefaculty",
-    value: function onChangefaculty(e) {
-      this.setState({
-        faculty: e.target.value
-      });
-    }
-  }, {
     key: "onSubmit",
     value: function onSubmit(e) {
       e.preventDefault();
       var newinstructor = {
+        faculty: this.state.faculty,
         instructor_name: this.state.instructor_name,
-        instructor_empno: this.state.instructor_empno,
-        instructor_email: this.state.instructor_email,
-        faculty: this.state.faculty
+        email: this.state.email,
+        instructor_empno: this.state.instructor_empno
       };
 
       _axios.default.post('http://localhost:8083/instructor/add', newinstructor).then(function (res) {
-        return console.log(res.data);
+        if (res) {
+          alert('New instructor added successfully!');
+          console.log(res); // ReactDOM.render(<vinstructors/>, document.getElementById('root'));
+        } else {
+          alert('Adding new instructor is failed.Please try again!');
+          return res.status(500).json({
+            message: 'Error'
+          });
+        }
       });
 
       this.setState({
+        faculty: '',
         instructor_name: '',
-        instructor_empno: '',
-        instructor_email: '',
-        faculty: ''
+        email: '',
+        instructor_empno: ''
       });
     }
   }, {
@@ -34440,7 +34332,7 @@ function (_Component) {
         style: {
           "marginTop": 20
         }
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h3", null, "New Instructor"), _react.default.createElement("form", {
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "New Instructor"), _react.default.createElement("form", {
         onSubmit: this.onSubmit
       }, _react.default.createElement("div", {
         className: "form-group"
@@ -34456,11 +34348,11 @@ function (_Component) {
         value: this.state.instructor_empno,
         onChange: this.onChangeinstructor_empno,
         required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Employee Email"), _react.default.createElement("input", {
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Email"), _react.default.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.instructor_email,
-        onChange: this.onChangeinstructor_email,
+        value: this.state.email,
+        onChange: this.onChangeemail,
         required: true
       }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Faculty"), _react.default.createElement("div", {
         className: "form-group"
@@ -34473,7 +34365,8 @@ function (_Component) {
         id: "computing",
         value: "Computing",
         checked: this.state.faculty === "Computing",
-        onChange: this.onChangefaculty
+        onChange: this.onChangefaculty,
+        required: true
       }), _react.default.createElement("label", {
         className: "form-check-label"
       }, "Computing")), _react.default.createElement("div", {
@@ -34532,7 +34425,432 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = CreateInstructor;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"AdminJob.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js","react-dom":"../node_modules/react-dom/index.js","./CreateCourse":"CreateCourse.jsx"}],"CreateAdmin.jsx":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+require("bootstrap/dist/css/bootstrap.min.css");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactAlert = require("react-alert");
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _CreateInstructor = _interopRequireDefault(require("./CreateInstructor"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var CreateCourse =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(CreateCourse, _Component);
+
+  function CreateCourse(props) {
+    var _this;
+
+    _classCallCheck(this, CreateCourse);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateCourse).call(this, props));
+    _this.onChangefaculty = _this.onChangefaculty.bind(_assertThisInitialized(_this));
+    _this.onChangeadmin_name = _this.onChangeadmin_name.bind(_assertThisInitialized(_this));
+    _this.onChangeadmin_empno = _this.onChangeadmin_empno.bind(_assertThisInitialized(_this));
+    _this.onChangeemail = _this.onChangeemail.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      faculty: '',
+      admin_name: '',
+      email: '',
+      admin_empno: ''
+    };
+    return _this;
+  }
+
+  _createClass(CreateCourse, [{
+    key: "onChangeemail",
+    value: function onChangeemail(e) {
+      this.setState({
+        email: e.target.value
+      });
+    }
+  }, {
+    key: "onChangefaculty",
+    value: function onChangefaculty(e) {
+      this.setState({
+        faculty: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeadmin_name",
+    value: function onChangeadmin_name(e) {
+      this.setState({
+        admin_name: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeadmin_empno",
+    value: function onChangeadmin_empno(e) {
+      this.setState({
+        admin_empno: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      e.preventDefault();
+      var newadmin = {
+        faculty: this.state.faculty,
+        admin_name: this.state.admin_name,
+        email: this.state.email,
+        admin_empno: this.state.admin_empno
+      };
+
+      _axios.default.post('http://localhost:8083/admin/add', newadmin).then(function (res) {
+        if (res) {
+          alert('New admin added successfully!');
+          console.log(res); // ReactDOM.render(<vadmins/>, document.getElementById('root'));
+        } else {
+          alert('Adding new admin is failed.Please try again!');
+          return res.status(500).json({
+            message: 'Error'
+          });
+        }
+      });
+
+      this.setState({
+        faculty: '',
+        admin_name: '',
+        email: '',
+        admin_empno: ''
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        style: {
+          "marginTop": 20
+        }
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "New Admin"), _react.default.createElement("form", {
+        onSubmit: this.onSubmit
+      }, _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("h6", null, "Admin Name"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.admin_name,
+        onChange: this.onChangeadmin_name,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Employee ID"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.admin_empno,
+        onChange: this.onChangeadmin_empno,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Email"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.email,
+        onChange: this.onChangeemail,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Faculty"), _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "computing",
+        value: "Computing",
+        checked: this.state.faculty === "Computing",
+        onChange: this.onChangefaculty,
+        required: true
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Computing")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "business",
+        value: "Business",
+        checked: this.state.faculty === "Business",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Business")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "engineering",
+        value: "Engineering",
+        checked: this.state.faculty === "Engineering",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Engineering")), _react.default.createElement("div", {
+        className: "form-check form-check-inline"
+      }, _react.default.createElement("input", {
+        className: "form-check-input",
+        type: "radio",
+        name: "faculty",
+        id: "HumanitiesAndSciences",
+        value: "HumanitiesAndSciences",
+        checked: this.state.faculty === "HumanitiesAndSciences",
+        onChange: this.onChangefaculty
+      }), _react.default.createElement("label", {
+        className: "form-check-label"
+      }, "Humanities And Sciences"))), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Save"), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Cancel")))));
+    }
+  }]);
+
+  return CreateCourse;
+}(_react.Component);
+
+exports.default = CreateCourse;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js","react-dom":"../node_modules/react-dom/index.js","./CreateInstructor":"CreateInstructor.jsx"}],"ViewAdmins.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Admins = function Admins(props) {
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.admins.admin_name), _react.default.createElement("td", null, props.admins.admin_empno), _react.default.createElement("td", null, props.admins.email), _react.default.createElement("td", null, props.admins.faculty));
+};
+
+var ViewAdmins =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ViewAdmins, _Component);
+
+  function ViewAdmins(props) {
+    var _this;
+
+    _classCallCheck(this, ViewAdmins);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ViewAdmins).call(this, props));
+    _this.state = {
+      admins: []
+    };
+    return _this;
+  }
+
+  _createClass(ViewAdmins, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios.default.get('http://localhost:8083/admin/all').then(function (res) {
+        _this2.setState({
+          admins: res.data
+        });
+
+        console.log(res.data);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "adminList",
+    value: function adminList() {
+      return this.state.admins.map(function (current, i) {
+        return _react.default.createElement(Admins, {
+          admins: current,
+          key: i
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Admins"), _react.default.createElement("table", {
+        className: "table table-striped",
+        style: {
+          marginTop: 20
+        }
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Admin Name"), _react.default.createElement("th", null, "Employee Number"), _react.default.createElement("th", null, "Email"), _react.default.createElement("th", null, "Faculty"))), _react.default.createElement("tbody", null, this.adminList())));
+    }
+  }]);
+
+  return ViewAdmins;
+}(_react.Component);
+
+exports.default = ViewAdmins;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"ViewInstructors.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Instructors = function Instructors(props) {
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.instructors.instructor_name), _react.default.createElement("td", null, props.instructors.instructor_empno), _react.default.createElement("td", null, props.instructors.email), _react.default.createElement("td", null, props.instructors.faculty));
+};
+
+var ViewInstructors =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ViewInstructors, _Component);
+
+  function ViewInstructors(props) {
+    var _this;
+
+    _classCallCheck(this, ViewInstructors);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ViewInstructors).call(this, props));
+    _this.state = {
+      instructors: []
+    };
+    return _this;
+  }
+
+  _createClass(ViewInstructors, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios.default.get('http://localhost:8083/instructor/all').then(function (res) {
+        _this2.setState({
+          instructors: res.data
+        });
+
+        console.log(res.data);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "instructorList",
+    value: function instructorList() {
+      return this.state.instructors.map(function (current, i) {
+        return _react.default.createElement(Instructors, {
+          instructors: current,
+          key: i
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Instructors"), _react.default.createElement("table", {
+        className: "table table-striped",
+        style: {
+          marginTop: 20
+        }
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Instructor Name"), _react.default.createElement("th", null, "Employee Number"), _react.default.createElement("th", null, "Email"), _react.default.createElement("th", null, "Faculty"))), _react.default.createElement("tbody", null, this.instructorList())));
+    }
+  }]);
+
+  return ViewInstructors;
+}(_react.Component);
+
+exports.default = ViewInstructors;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"AdminJob.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34549,6 +34867,12 @@ var _CreateCourse = _interopRequireDefault(require("./CreateCourse"));
 var _CreateAdmin = _interopRequireDefault(require("./CreateAdmin"));
 
 var _CreateInstructor = _interopRequireDefault(require("./CreateInstructor"));
+
+var _ViewCourses = _interopRequireDefault(require("./ViewCourses"));
+
+var _ViewAdmins = _interopRequireDefault(require("./ViewAdmins"));
+
+var _ViewInstructors = _interopRequireDefault(require("./ViewInstructors"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34601,7 +34925,7 @@ function (_React$Component) {
         className: "btn btn-warning",
         style: {
           float: 'right',
-          marginRight: '50px'
+          marginRight: '30px'
         }
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/course"
@@ -34610,7 +34934,7 @@ function (_React$Component) {
         className: "btn btn-warning",
         style: {
           float: 'right',
-          marginRight: '50px'
+          marginRight: '30px'
         }
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/admin"
@@ -34619,11 +34943,38 @@ function (_React$Component) {
         className: "btn btn-warning",
         style: {
           float: 'right',
-          marginRight: '50px'
+          marginRight: '30px'
         }
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/instructor"
-      }, "New Instructor")))), _react.default.createElement(_reactRouterDom.Route, {
+      }, "New Instructor")), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-warning",
+        style: {
+          float: 'right',
+          marginRight: '30px'
+        }
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/vcourses"
+      }, "View Courses")), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-warning",
+        style: {
+          float: 'right',
+          marginRight: '30px'
+        }
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/vadmins"
+      }, "View Admins")), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-warning",
+        style: {
+          float: 'right',
+          marginRight: '30px'
+        }
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/vinstructors"
+      }, "View Instructors")))), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/course",
         render: function render(props) {
@@ -34641,6 +34992,24 @@ function (_React$Component) {
         render: function render(props) {
           return _react.default.createElement(_CreateInstructor.default, null);
         }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/vcourses",
+        render: function render(props) {
+          return _react.default.createElement(_ViewCourses.default, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/vadmins",
+        render: function render(props) {
+          return _react.default.createElement(_ViewAdmins.default, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/vinstructors",
+        render: function render(props) {
+          return _react.default.createElement(_ViewInstructors.default, null);
+        }
       }))));
     }
   }]);
@@ -34649,7 +35018,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = AdminJob;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./CreateCourse":"CreateCourse.jsx","./CreateAdmin":"CreateAdmin.jsx","./CreateInstructor":"CreateInstructor.jsx"}],"Login.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./CreateCourse":"CreateCourse.jsx","./CreateAdmin":"CreateAdmin.jsx","./CreateInstructor":"CreateInstructor.jsx","./ViewCourses":"ViewCourses.jsx","./ViewAdmins":"ViewAdmins.jsx","./ViewInstructors":"ViewInstructors.jsx"}],"Login.jsx":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34665,9 +35034,9 @@ require("bootstrap/dist/css/bootstrap.min.css");
 
 var _reactRouterDom = require("react-router-dom");
 
-var _reactAlert = require("react-alert");
+var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _Admin = _interopRequireDefault(require("./Admin"));
+var _AdminJob = _interopRequireDefault(require("./AdminJob"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34691,42 +35060,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var AddNewBook =
+var Login =
 /*#__PURE__*/
-function (_Component) {
-  _inherits(AddNewBook, _Component);
+function (_React$Component) {
+  _inherits(Login, _React$Component);
 
-  function AddNewBook(props) {
+  function Login(props) {
     var _this;
 
-    _classCallCheck(this, AddNewBook);
+    _classCallCheck(this, Login);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AddNewBook).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
     _this.onChangeemail = _this.onChangeemail.bind(_assertThisInitialized(_this));
     _this.onChangepassword = _this.onChangepassword.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
       email: '',
-      password: '' // this.state = {
-      //     redirect: false
-      // }
-      // this.setRedirect = () => {
-      //     this.setState({
-      //         redirect: true
-      //     })
-      // }
-      // this.renderRedirect = () => {
-      //     if (this.state.redirect) {
-      //         return <Redirect to='/target' />
-      //  onClick={this.setRedirect}
-      //     }
-      // }
-
+      password: ''
     };
     return _this;
   }
 
-  _createClass(AddNewBook, [{
+  _createClass(Login, [{
     key: "onChangeemail",
     value: function onChangeemail(e) {
       this.setState({
@@ -34744,11 +35099,20 @@ function (_Component) {
     key: "onSubmit",
     value: function onSubmit(e) {
       e.preventDefault();
-      var newuser = {
-        email: this.state.email,
-        password: this.state.password // axios.post('http://localhost:8083/user/add',newuser).then(res=>console.log(res.data));
 
-      };
+      _axios.default.get('http://localhost:8083/slogin/email/password').then(function (res) {
+        if (res) {
+          // alert('Welcome to the Smart Student Instructor System!');
+          console.log(res);
+
+          _reactDom.default.render(_react.default.createElement(_AdminJob.default, null), document.getElementById('root2'));
+        } else {
+          alert('Registration is failed!');
+
+          _reactDom.default.render(_react.default.createElement(Login, null), document.getElementById('root'));
+        }
+      });
+
       this.setState({
         email: '',
         password: ''
@@ -34761,8 +35125,9 @@ function (_Component) {
         style: {
           "marginTop": 20
         }
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h3", null, "Login"), _react.default.createElement("form", {
-        onSubmit: this.onSubmit
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("form", {
+        onSubmit: this.onSubmit,
+        id: 'root2'
       }, _react.default.createElement("div", {
         className: "form-group"
       }, _react.default.createElement("h6", null, "Email"), _react.default.createElement("input", {
@@ -34791,11 +35156,11 @@ function (_Component) {
     }
   }]);
 
-  return AddNewBook;
-}(_react.Component);
+  return Login;
+}(_react.default.Component);
 
-exports.default = AddNewBook;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js","./Admin":"Admin.jsx"}],"Signup.jsx":[function(require,module,exports) {
+exports.default = Login;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-dom":"../node_modules/react-dom/index.js","./AdminJob":"AdminJob.jsx"}],"Signup.jsx":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34812,8 +35177,6 @@ require("bootstrap/dist/css/bootstrap.min.css");
 var _reactRouterDom = require("react-router-dom");
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _AdminJob = _interopRequireDefault(require("./AdminJob"));
 
 var _Login = _interopRequireDefault(require("./Login"));
 
@@ -34857,21 +35220,7 @@ function (_React$Component) {
     _this.state = {
       email: '',
       role: '',
-      password: '' // this.state = {
-      //     redirect: false
-      // }
-      // this.setRedirect = () => {
-      //     this.setState({
-      //         redirect: true
-      //     })
-      // }
-      // this.renderRedirect = () => {
-      //     if (this.state.redirect) {
-      //         return <Redirect to='/target' />
-      //   onClick={this.setRedirect}
-      //     }
-      // }
-
+      password: ''
     };
     return _this;
   }
@@ -34908,13 +35257,13 @@ function (_React$Component) {
       };
 
       _axios.default.post('http://localhost:8083/user/add', newuser).then(function (res) {
-        alert('Successfull' + JSON.stringify(res.data));
-
         if (res) {
+          alert('Successfully Registered!');
           console.log(res);
 
           _reactDom.default.render(_react.default.createElement(_Login.default, null), document.getElementById('root'));
         } else {
+          alert('Registration is failed.Please try again!');
           return res.status(500).json({
             message: 'Error'
           });
@@ -34943,17 +35292,20 @@ function (_React$Component) {
         type: "text",
         className: "form-control",
         value: this.state.email,
-        onChange: this.onChangeemail
+        onChange: this.onChangeemail,
+        required: true
       }), _react.default.createElement("h6", null, "Role"), _react.default.createElement("input", {
         type: "text",
         className: "form-control",
         value: this.state.role,
-        onChange: this.onChangerole
+        onChange: this.onChangerole,
+        required: true
       }), _react.default.createElement("h6", null, "Password"), _react.default.createElement("input", {
         type: "password",
         className: "form-control",
         value: this.state.password,
-        onChange: this.onChangepassword
+        onChange: this.onChangepassword,
+        required: true
       }), _react.default.createElement("br", null), _react.default.createElement("button", {
         type: "submit",
         className: "btn btn-primary",
@@ -34974,7 +35326,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = Signup;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-dom":"../node_modules/react-dom/index.js","./AdminJob":"AdminJob.jsx","./Login":"Login.jsx"}],"CreateAssignment.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-dom":"../node_modules/react-dom/index.js","./Login":"Login.jsx"}],"CreateAssignment.jsx":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35126,168 +35478,6 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = CreateAssignment;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"UpdateAssignment.jsx":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-require("bootstrap/dist/css/bootstrap.min.css");
-
-var _reactRouterDom = require("react-router-dom");
-
-var _reactAlert = require("react-alert");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var UpdateAssignment =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(UpdateAssignment, _Component);
-
-  function UpdateAssignment(props) {
-    var _this;
-
-    _classCallCheck(this, UpdateAssignment);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(UpdateAssignment).call(this, props));
-    _this.onChangeDuedate = _this.onChangeDuedate.bind(_assertThisInitialized(_this));
-    _this.onChangeFile = _this.onChangeFile.bind(_assertThisInitialized(_this));
-    _this.onChangeComments = _this.onChangeComments.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.state = {
-      duedate: '',
-      file: '',
-      comments: ''
-    };
-    return _this;
-  } //  componentDidMount() {
-  //  axios.get('http://localhost:8083/assignments/'+this.props.match.params.id)
-  //  .then(response => {
-  //  this.setState({
-  //  duedate : response.data.duedate,
-  //file: response.data.file,
-  //comments: response.data.comments,
-  //})
-  //})
-  //.catch(function (error) {
-  //  console.log(error);
-  //})
-  // }
-
-
-  _createClass(UpdateAssignment, [{
-    key: "onChangeDuedate",
-    value: function onChangeDuedate(e) {
-      this.setState({
-        duedate: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeFile",
-    value: function onChangeFile(e) {
-      this.setState({
-        file: e.target.value
-      });
-    }
-  }, {
-    key: "onChangeComments",
-    value: function onChangeComments(e) {
-      this.setState({
-        comments: e.target.value
-      });
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
-      e.preventDefault();
-      var newassignment = {
-        duedate: this.state.duedate,
-        file: this.state.file,
-        comments: this.state.comments
-      };
-      console.log(newassignment);
-
-      _axios.default.post('http://localhost:8083/assignment/update/', this.props.match.params.id, newassignment).then(function (res) {
-        return console.log(res.data);
-      });
-
-      this.props.history.push('/');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", {
-        style: {
-          "marginTop": 20
-        }
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "Update Assignment"), _react.default.createElement("form", {
-        onSubmit: this.onSubmit
-      }, _react.default.createElement("div", {
-        className: "form-group"
-      }, _react.default.createElement("h6", null, "Due Date"), _react.default.createElement("input", {
-        type: "date",
-        className: "form-control",
-        value: this.state.duedate,
-        onChange: this.onChangeDuedate,
-        required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Assignment File"), _react.default.createElement("input", {
-        type: "file",
-        className: "form-control",
-        value: this.state.file,
-        onChange: this.onChangeFile,
-        required: true
-      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Submission Comments"), _react.default.createElement("input", {
-        type: "text",
-        className: "form-control",
-        value: this.state.comments,
-        onChange: this.onChangeComments
-      }), _react.default.createElement("br", null), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Update"), _react.default.createElement("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        style: {
-          marginRight: '50px'
-        }
-      }, "Cancel")))));
-    }
-  }]);
-
-  return UpdateAssignment;
-}(_react.Component);
-
-exports.default = UpdateAssignment;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"ViewAssignments.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -35301,10 +35491,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _axios = _interopRequireDefault(require("axios"));
 
 var _reactRouterDom = require("react-router-dom");
-
-var _UpdateAssignment = _interopRequireDefault(require("./UpdateAssignment"));
-
-var _CreateAssignment = _interopRequireDefault(require("./CreateAssignment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35330,8 +35516,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var Assignments = function Assignments(props) {
   return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.assignments.duedate), _react.default.createElement("td", null, props.assignments.file), _react.default.createElement("td", null, props.assignments.comments), _react.default.createElement("td", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/assignment"
-  }, "Edit")));
+    to: "/edit/"
+  }, "Edit"))) // <Link to={"/edit/"+props.assignments._id}>Edit</Link>
+  ;
 };
 
 var ViewAssignments =
@@ -35380,24 +35567,12 @@ function (_Component) {
     key: "render",
     value: function render() {
       console.log(this.state);
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", null, _react.default.createElement("h3", null, "Assignments List"), _react.default.createElement("table", {
+      return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Assignments List"), _react.default.createElement("table", {
         className: "table table-striped",
         style: {
           marginTop: 20
         }
-      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Due Date"), _react.default.createElement("th", null, "File Name"), _react.default.createElement("th", null, "Comments"), _react.default.createElement("th", null, "Update"))), _react.default.createElement("tbody", null, this.assignmentList()))), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/edit/",
-        render: function render(props) {
-          return _react.default.createElement(_UpdateAssignment.default, null);
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/assignment",
-        render: function render(props) {
-          return _react.default.createElement(_CreateAssignment.default, null);
-        }
-      }));
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Due Date"), _react.default.createElement("th", null, "File Name"), _react.default.createElement("th", null, "Comments"), _react.default.createElement("th", null, "Update"))), _react.default.createElement("tbody", null, this.assignmentList())));
     }
   }]);
 
@@ -35405,7 +35580,7 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = ViewAssignments;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./UpdateAssignment":"UpdateAssignment.jsx","./CreateAssignment":"CreateAssignment.jsx"}],"ViewAnswers.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"ViewAnswers.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35443,7 +35618,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var Answers = function Answers(props) {
   return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.answers.date), _react.default.createElement("td", null, props.answers.file), _react.default.createElement("td", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/assignment"
+    to: "/marks/"
   }, "Grading")));
 };
 
@@ -35506,7 +35681,303 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = ViewAnswers;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"InstructorJob.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"UpdateAssignment.jsx":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+require("bootstrap/dist/css/bootstrap.min.css");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactAlert = require("react-alert");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var UpdateAssignment =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(UpdateAssignment, _Component);
+
+  function UpdateAssignment(props) {
+    var _this;
+
+    _classCallCheck(this, UpdateAssignment);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(UpdateAssignment).call(this, props));
+    _this.onChangeDuedate = _this.onChangeDuedate.bind(_assertThisInitialized(_this));
+    _this.onChangeFile = _this.onChangeFile.bind(_assertThisInitialized(_this));
+    _this.onChangeComments = _this.onChangeComments.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      duedate: '',
+      file: '',
+      comments: ''
+    };
+    return _this;
+  } //  componentDidMount() {
+  //    axios.get('http://localhost:8083/assignment/'+this.props.match.params.duedate)
+  //      .then(response => {
+  //
+  //              for (var assignments of response.data) {this.setState({
+  //
+  //                  duedate: assignments.duedate,
+  //                file: assignments.file,
+  //                  comments: assignments.comments
+  //
+  //            })
+  //          }
+  //
+  //          })
+  //        .catch(function (error) {
+  //          console.log(error);
+  //    })
+  //}
+
+
+  _createClass(UpdateAssignment, [{
+    key: "onChangeDuedate",
+    value: function onChangeDuedate(e) {
+      this.setState({
+        duedate: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeFile",
+    value: function onChangeFile(e) {
+      this.setState({
+        file: e.target.value
+      });
+    }
+  }, {
+    key: "onChangeComments",
+    value: function onChangeComments(e) {
+      this.setState({
+        comments: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      e.preventDefault();
+      var newassignment = {
+        duedate: this.state.duedate,
+        file: this.state.file,
+        comments: this.state.comments
+      };
+      console.log(newassignment); //axios.put('http://localhost:8083/assignment/'+this.state.duedate, newassignment)
+      //  .then(res=>console.log(res.data))
+      //.catch(function (err) {
+      //  console.log(err);
+      //})
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        style: {
+          "marginTop": 20
+        }
+      }, _react.default.createElement("h4", null, "Update Assignment"), _react.default.createElement("form", {
+        onSubmit: this.onSubmit
+      }, _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("h6", null, "Due Date"), _react.default.createElement("input", {
+        type: "date",
+        className: "form-control",
+        value: this.state.duedate,
+        onChange: this.onChangeDuedate,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Assignment File"), _react.default.createElement("input", {
+        type: "file",
+        className: "form-control",
+        value: this.state.file,
+        onChange: this.onChangeFile,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Submission Comments"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.comments,
+        onChange: this.onChangeComments
+      }), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Update"), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Cancel"))));
+    }
+  }]);
+
+  return UpdateAssignment;
+}(_react.Component);
+
+exports.default = UpdateAssignment;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"GiveMarks.jsx":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+require("bootstrap/dist/css/bootstrap.min.css");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactAlert = require("react-alert");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var UpdateAssignment =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(UpdateAssignment, _Component);
+
+  function UpdateAssignment(props) {
+    var _this;
+
+    _classCallCheck(this, UpdateAssignment);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(UpdateAssignment).call(this, props));
+    _this.onChangeMarks = _this.onChangeMarks.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      marks: ''
+    };
+    return _this;
+  } //  componentDidMount() {
+  //    axios.get('http://localhost:8083/assignmentAnswer/'+this.props.match.params._id)
+  //      .then(response => {
+  //
+  //              for (var assignmentAnswe of response.data) {this.setState({
+  //
+  //                  marks: assignmentAnswe.marks,
+  //            })
+  //          }
+  //
+  //          })
+  //        .catch(function (error) {
+  //          console.log(error);
+  //    })
+  //}
+
+
+  _createClass(UpdateAssignment, [{
+    key: "onChangeMarks",
+    value: function onChangeMarks(e) {
+      this.setState({
+        marks: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      e.preventDefault();
+      var newassignment = {
+        marks: this.state.marks
+      };
+      console.log(newassignment); //axios.put('http://localhost:8083/assignment/'+this.state._id, newassignment)
+      //  .then(res=>console.log(res.data))
+      //.catch(function (err) {
+      //  console.log(err);
+      //})
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        style: {
+          "marginTop": 20
+        }
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("h4", null, "Assign Marks"), _react.default.createElement("form", {
+        onSubmit: this.onSubmit
+      }, _react.default.createElement("div", {
+        className: "form-group"
+      }, _react.default.createElement("h6", null, "Marks"), _react.default.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.marks,
+        onChange: this.onChangeMarks,
+        required: true
+      }), _react.default.createElement("br", null), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Submit"), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        style: {
+          marginRight: '50px'
+        }
+      }, "Cancel")))));
+    }
+  }]);
+
+  return UpdateAssignment;
+}(_react.Component);
+
+exports.default = UpdateAssignment;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"InstructorJob.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35525,6 +35996,8 @@ var _ViewAssignments = _interopRequireDefault(require("./ViewAssignments"));
 var _ViewAnswers = _interopRequireDefault(require("./ViewAnswers"));
 
 var _UpdateAssignment = _interopRequireDefault(require("./UpdateAssignment"));
+
+var _GiveMarks = _interopRequireDefault(require("./GiveMarks"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35601,6 +36074,8 @@ function (_React$Component) {
         to: "/viewans"
       }, "View Answers")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/edit/"
+      }), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/marks/"
       }))), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/assignment",
@@ -35625,6 +36100,12 @@ function (_React$Component) {
         render: function render(props) {
           return _react.default.createElement(_UpdateAssignment.default, null);
         }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/marks/",
+        render: function render(props) {
+          return _react.default.createElement(_GiveMarks.default, null);
+        }
       }))));
     }
   }]);
@@ -35633,7 +36114,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = InstructorJob;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./CreateAssignment":"CreateAssignment.jsx","./ViewAssignments":"ViewAssignments.jsx","./ViewAnswers":"ViewAnswers.jsx","./UpdateAssignment":"UpdateAssignment.jsx"}],"StudentViewAssignments.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./CreateAssignment":"CreateAssignment.jsx","./ViewAssignments":"ViewAssignments.jsx","./ViewAnswers":"ViewAnswers.jsx","./UpdateAssignment":"UpdateAssignment.jsx","./GiveMarks":"GiveMarks.jsx"}],"StudentViewAssignments.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35672,7 +36153,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var Assignments = function Assignments(props) {
   return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.assignments.duedate), _react.default.createElement("td", null, props.assignments.file), _react.default.createElement("td", null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/uploading"
-  }, "Upload")));
+  }, "Edit")));
 };
 
 var StudentViewAssignments =
@@ -35956,7 +36437,106 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = UpdateAnswer;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"StudentJob.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-alert":"../node_modules/react-alert/dist/esm/react-alert.js"}],"StudentViewCourses.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Courses = function Courses(props) {
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.courses.module_name), _react.default.createElement("td", null, props.courses.enroll));
+};
+
+var StudentViewCourses =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(StudentViewCourses, _Component);
+
+  function StudentViewCourses(props) {
+    var _this;
+
+    _classCallCheck(this, StudentViewCourses);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(StudentViewCourses).call(this, props));
+    _this.state = {
+      courses: []
+    };
+    return _this;
+  }
+
+  _createClass(StudentViewCourses, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios.default.get('http://localhost:8083/course/all').then(function (res) {
+        _this2.setState({
+          courses: res.data
+        });
+
+        console.log(res.data);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "courseList",
+    value: function courseList() {
+      return this.state.courses.map(function (current, i) {
+        return _react.default.createElement(Courses, {
+          courses: current,
+          key: i
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      return _react.default.createElement("div", null, _react.default.createElement("h3", null, "Courses"), _react.default.createElement("table", {
+        className: "table table-striped",
+        style: {
+          marginTop: 20
+        }
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Module Name"), _react.default.createElement("th", null, "Enrollment Key"))), _react.default.createElement("tbody", null, this.courseList())));
+    }
+  }]);
+
+  return StudentViewCourses;
+}(_react.Component);
+
+exports.default = StudentViewCourses;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"StudentJob.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35973,6 +36553,8 @@ var _StudentViewAssignments = _interopRequireDefault(require("./StudentViewAssig
 var _ViewMarks = _interopRequireDefault(require("./ViewMarks"));
 
 var _UpdateAnswer = _interopRequireDefault(require("./UpdateAnswer"));
+
+var _StudentViewCourses = _interopRequireDefault(require("./StudentViewCourses"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36038,7 +36620,16 @@ function (_React$Component) {
         }
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/vmarks"
-      }, "View Marks")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "View Marks")), _react.default.createElement("button", {
+        type: "submit",
+        className: "btn btn-warning",
+        style: {
+          float: 'right',
+          marginRight: '50px'
+        }
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/viewcourses"
+      }, "View Courses")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/uploading"
       }))), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -36058,6 +36649,12 @@ function (_React$Component) {
         render: function render(props) {
           return _react.default.createElement(_UpdateAnswer.default, null);
         }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/viewcourses",
+        render: function render(props) {
+          return _react.default.createElement(_StudentViewCourses.default, null);
+        }
       }))));
     }
   }]);
@@ -36066,7 +36663,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.default = StudentJob;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./StudentViewAssignments":"StudentViewAssignments.jsx","./ViewMarks":"ViewMarks.jsx","./UpdateAnswer":"UpdateAnswer.jsx"}],"Admin.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./StudentViewAssignments":"StudentViewAssignments.jsx","./ViewMarks":"ViewMarks.jsx","./UpdateAnswer":"UpdateAnswer.jsx","./StudentViewCourses":"StudentViewCourses.jsx"}],"Admin.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36150,7 +36747,7 @@ function (_React$Component) {
         className: "btn btn-warning",
         style: {
           float: 'right',
-          marginRight: '10px'
+          marginRight: '40px'
         }
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/login"
@@ -36266,7 +36863,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51482" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56571" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

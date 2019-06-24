@@ -25,22 +25,14 @@ var AssignmentUploadController=function () {
             })
         })
     }
-    this.search = (id) => {
-        return new Promise((resolve, reject) => {
-            InstructorUploadSchema.find({_id: id}).exec().then(data => {
-                resolve({status: 200, data: data});
-            }).catch(err => {
-                reject({status: 500, message: "Error:- " + err});
-            })
-        })
-    }
 
-    this.update = (id, data) => {
-        return new Promise((resolve, reject) => {
-            InstructorUploadSchema.update({_id: id}, data).then(() => {
-                resolve({status: 200, message: "update comment"});
-            }).catch(err => {
-                reject({status: 500, message: "Error:- " + err});
+
+    this.update = (_id,data)=>{
+        return new Promise((resolve,reject)=>{
+            InstructorUploadSchema.update({_id:_id},data).then(()=>{
+                resolve({status: 200,message:"Updated the Assignment"});
+            }).catch(err=>{
+                reject({status:500,message:"Error:-" + err});
             })
         })
     }

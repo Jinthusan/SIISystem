@@ -32,7 +32,7 @@ export default class Admin extends React.Component {
                 <div>
                     <div>
                         <div>
-                            <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'10px'}}><Link to="/login">Login</Link></button>
+                            <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'40px'}}><Link to="/login">Login</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'40px'}}><Link to="/singup">Signup</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'40px'}}><Link to="/admin1">Admin</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'40px'}}><Link to="/instructor1">Instructor</Link></button>

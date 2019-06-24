@@ -19,19 +19,25 @@ export default class UpdateAssignment extends Component {
         }
     }
 
-   //  componentDidMount() {
-     //  axios.get('http://localhost:8083/assignments/'+this.props.match.params.id)
-       //  .then(response => {
-         //  this.setState({
-           //  duedate : response.data.duedate,
-           //file: response.data.file,
-         //comments: response.data.comments,
-    //})
-    //})
-    //.catch(function (error) {
-    //  console.log(error);
-    //})
-   // }
+  //  componentDidMount() {
+    //    axios.get('http://localhost:8083/assignment/'+this.props.match.params.duedate)
+      //      .then(response => {
+//
+  //              for (var assignments of response.data) {this.setState({
+//
+  //                  duedate: assignments.duedate,
+    //                file: assignments.file,
+  //                  comments: assignments.comments
+//
+    //            })
+      //          }
+//
+  //          })
+    //        .catch(function (error) {
+      //          console.log(error);
+        //    })
+    //}
+
 
 
 
@@ -63,15 +69,19 @@ export default class UpdateAssignment extends Component {
             comments:this.state.comments
         };
         console.log(newassignment);
-       axios.post('http://localhost:8083/assignment/update/',this.props.match.params.id,newassignment).then(res=>console.log(res.data));
-        this.props.history.push('/');
+       //axios.put('http://localhost:8083/assignment/'+this.state.duedate, newassignment)
+         //  .then(res=>console.log(res.data))
+           //.catch(function (err) {
+             //  console.log(err);
+           //})
+
 
     }
 
     render() {
         return (
             <div style={{"marginTop": 20}}>
-                <Router>
+
                     <h4>Update Assignment</h4>
                     <form onSubmit={this.onSubmit}>
                         <div className={"form-group"}>
@@ -87,7 +97,7 @@ export default class UpdateAssignment extends Component {
                         </div>
                     </form>
 
-                </Router>
+
             </div>
         );
     }

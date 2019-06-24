@@ -7,7 +7,7 @@ var InstructorController=function () {
             var instructor=new InstructorSchema({
                 instructor_name: data.instructor_name,
                 instructor_empno: data.instructor_empno,
-                instructor_email: data.instructor_email,
+                email: data.email,
                 faculty: data.faculty
             });
             instructor.save().then(result=>{
@@ -41,18 +41,20 @@ var InstructorController=function () {
                         console.log('Email sent:'+info.response);
                     }
                 });
-                console.log(result);
-                res.status(201).json({
-                    message:'Instructor added',
-                    createdInstructor:result
-                });
+                resolve({status:200,message:"new instructor added successfully"});
             }).catch(err=>{
-                console.log(err.message);
-                res.status(500).json({
-                    error:err
-                });
+                reject({status:500,message:"Error:-"+err});
             });
         });
+    }
+    this.searchAll=()=>{
+        return new Promise((resolve ,reject)=>{
+            InstructorSchema.find().exec().then(data=>{
+                resolve({status:200,data:data})
+            }).catch(err=>{
+                reject({status:500,message:"Error:-"+err});
+            })
+        })
     }
 }
 

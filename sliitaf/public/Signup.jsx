@@ -5,7 +5,6 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ReactDOM from 'react-dom'
-import CreateInstructor from "./AdminJob";
 import Login from './Login';
 export default class Signup extends React.Component {
     constructor(props) {
@@ -19,20 +18,6 @@ export default class Signup extends React.Component {
             role: '',
             password: ''
         }
-        // this.state = {
-        //     redirect: false
-        // }
-        // this.setRedirect = () => {
-        //     this.setState({
-        //         redirect: true
-        //     })
-        // }
-        // this.renderRedirect = () => {
-        //     if (this.state.redirect) {
-        //         return <Redirect to='/target' />
-        //   onClick={this.setRedirect}
-        //     }
-        // }
     }
 
     onChangeemail(e) {
@@ -60,14 +45,15 @@ export default class Signup extends React.Component {
             password:this.state.password
         }
         axios.post('http://localhost:8083/user/add',newuser).then(res=>{
-            alert('Successfull'+JSON.stringify(res.data));
             if (res)
             {
+                alert('Successfully Registered!');
                 console.log(res);
                 ReactDOM.render(<Login/>,document.getElementById('root'));
             }
             else
             {
+                alert('Registration is failed.Please try again!');
                 return res.status(500).json({message: 'Error'});
             }
         });
@@ -86,14 +72,13 @@ export default class Signup extends React.Component {
                 <form onSubmit={this.onSubmit} id={'root'}>
                     <div className={"form-group"}>
                         <h6>Email</h6>
-                        <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeemail}/>
+                        <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeemail} required={true}/>
                         <h6>Role</h6>
-                        <input type="text" className="form-control" value={this.state.role} onChange={this.onChangerole}/>
+                        <input type="text" className="form-control" value={this.state.role} onChange={this.onChangerole} required={true}/>
                         <h6>Password</h6>
-                        <input type="password" className="form-control" value={this.state.password} onChange={this.onChangepassword}/><br/>
+                        <input type="password" className="form-control" value={this.state.password} onChange={this.onChangepassword} required={true}/><br/>
                         <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}}>Signup</button>
                         <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}} >Cancel</button>
-                        {/*<Route exact path="/singup" render={() => {window.location.href="Admin.jsx"}} />*/}
                     </div>
                 </form>
                 </Router>

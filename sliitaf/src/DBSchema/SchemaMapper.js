@@ -35,9 +35,14 @@ const AdminSchema=new Schema({
     },
     admin_empno:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     faculty:{
+        type:String,
+        required:true
+    },
+    email:{
         type:String,
         required:true
     }
@@ -49,9 +54,14 @@ const InstructorSchema=new Schema({
     },
     instructor_empno:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     faculty:{
+        type:String,
+        required:true
+    },
+    email:{
         type:String,
         required:true
     }
@@ -89,7 +99,7 @@ const AnswerUploadSchema=new Schema({
         type:String,
         required:true
     },
-    date:{
+    marks:{
         type:String
     }
 });

@@ -6,7 +6,7 @@ const Assignments = (props)=>(
         <td>{props.assignments.duedate}</td>
         <td>{props.assignments.file}</td>
         <td>
-            <Link to={"/uploading"}>Upload</Link>
+            <Link to={"/uploading"}>Edit</Link>
         </td>
     </tr>
 );

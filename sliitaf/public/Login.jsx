@@ -4,9 +4,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import { useAlert, positions } from 'react-alert'
-import Admin from "./Admin";
-export default class AddNewBook extends Component {
+import ReactDOM from "react-dom";
+import Admin from './AdminJob';
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.onChangeemail = this.onChangeemail.bind(this);
@@ -16,20 +16,6 @@ export default class AddNewBook extends Component {
             email: '',
             password: ''
         }
-        // this.state = {
-        //     redirect: false
-        // }
-        // this.setRedirect = () => {
-        //     this.setState({
-        //         redirect: true
-        //     })
-        // }
-        // this.renderRedirect = () => {
-        //     if (this.state.redirect) {
-        //         return <Redirect to='/target' />
-        //  onClick={this.setRedirect}
-        //     }
-        // }
     }
 
     onChangeemail(e) {
@@ -45,11 +31,19 @@ export default class AddNewBook extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const newuser={
-            email:this.state.email,
-            password:this.state.password
-        }
-       // axios.post('http://localhost:8083/user/add',newuser).then(res=>console.log(res.data));
+        axios.get('http://localhost:8083/slogin/email/password').then(res=>{
+            if (res)
+            {
+                // alert('Welcome to the Smart Student Instructor System!');
+                console.log(res);
+                ReactDOM.render(<Admin/>,document.getElementById('root2'));
+            }
+            else
+            {
+                alert('Registration is failed!');
+                ReactDOM.render(<Login/>,document.getElementById('root'));
+            }
+        });
         this.setState({
             email: '',
             password: ''
@@ -61,8 +55,7 @@ export default class AddNewBook extends Component {
         return (
             <div style={{"marginTop": 20}}>
                 <Router>
-                    <h3>Login</h3>
-                    <form onSubmit={this.onSubmit} >
+                    <form onSubmit={this.onSubmit} id={'root2'}>
                         <div className={"form-group"}>
                             <h6>Email</h6>
                             <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeemail}/>
@@ -70,7 +63,6 @@ export default class AddNewBook extends Component {
                             <input type="password" className="form-control" value={this.state.password} onChange={this.onChangepassword}/><br/>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}}>Login</button>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}}>Cancel</button>
-                            {/*<Route exact path="/singup" render={() => {window.location.href="Admin.jsx"}} />*/}
                         </div>
                     </form>
                 </Router>

@@ -7,6 +7,7 @@ var AdminController=function () {
             var admin=new AdminSchema({
                 admin_name: data.admin_name,
                 admin_empno: data.admin_empno,
+                email: data.email,
                 faculty: data.faculty
             });
             admin.save().then(()=>{
@@ -15,6 +16,15 @@ var AdminController=function () {
                 reject({status:500,message:"Error:-"+err});
             });
         });
+    }
+    this.searchAll=()=>{
+        return new Promise((resolve ,reject)=>{
+            AdminSchema.find().exec().then(data=>{
+                resolve({status:200,data:data})
+            }).catch(err=>{
+                reject({status:500,message:"Error:-"+err});
+            })
+        })
     }
 }
 

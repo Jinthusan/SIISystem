@@ -4,6 +4,7 @@ import CreateAssignment from './CreateAssignment';
 import ViewAssignments from './ViewAssignments'
 import ViewAnswers from './ViewAnswers'
 import UpdateAssignment from './UpdateAssignment';
+import GiveMarks from  './GiveMarks'
 export default class InstructorJob extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ export default class InstructorJob extends React.Component {
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viwass">View Assignments</Link></button>
                             <button type="submit" className="btn btn-warning" style={{float:'right',marginRight:'50px'}}><Link to="/viewans">View Answers</Link></button>
                             <Link to="/edit/"/>
+                            <Link to="/marks/"/>
                         </div>
                     </div>
                     <Route exact path="/assignment" render={props => {
@@ -36,6 +38,9 @@ export default class InstructorJob extends React.Component {
                     }}/>
                     <Route exact path="/edit/" render={props => {
                         return <UpdateAssignment/>
+                    }}/>
+                    <Route exact path="/marks/" render={props => {
+                        return <GiveMarks/>
                     }}/>
                 </div>
             </Router>

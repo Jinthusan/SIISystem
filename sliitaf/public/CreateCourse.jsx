@@ -4,7 +4,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import { useAlert, positions } from 'react-alert'
+import ReactDOM from "react-dom";
+import ViewCourses from './ViewCourses'
 export default class CreateCourse extends Component {
     constructor(props) {
         super(props);
@@ -23,20 +24,6 @@ export default class CreateCourse extends Component {
             instructor: '',
             enroll: ''
         }
-        // this.state = {
-        //     redirect: false
-        // }
-        // this.setRedirect = () => {
-        //     this.setState({
-        //         redirect: true
-        //     })
-        // }
-        // this.renderRedirect = () => {
-        //     if (this.state.redirect) {
-        //         return <Redirect to='/target' />
-        //   onClick={this.setRedirect}
-        //     }
-        // }
     }
 
     onChangefaculty(e) {
@@ -81,7 +68,16 @@ export default class CreateCourse extends Component {
             instructor:this.state.instructor,
             enroll:this.state.enroll
         }
-        axios.post('http://localhost:8083/course/add',newcourse).then(res=>console.log(res.data));
+        axios.post('http://localhost:8083/course/add',newcourse).then(res=> {
+            if (res) {
+                alert('New course added successfully!');
+                console.log(res);
+               // ReactDOM.render(<ViewCourses/>, document.getElementById('root'));
+            } else {
+                alert('Adding new course is failed.Please try again!');
+                return res.status(500).json({message: 'Error'});
+            }
+        });
         this.setState({
             faculty: '',
             year: '',
@@ -109,7 +105,7 @@ export default class CreateCourse extends Component {
                                            id="computing"
                                            value="Computing"
                                            checked={this.state.faculty === "Computing"}
-                                           onChange={this.onChangefaculty}/>
+                                           onChange={this.onChangefaculty} required={true}/>
                                     <label className="form-check-label">Computing</label>
                                 </div>
 
@@ -156,7 +152,7 @@ export default class CreateCourse extends Component {
                                            id="year1"
                                            value="1st"
                                            checked={this.state.year === "1st"}
-                                           onChange={this.onChangeyear}/>
+                                           onChange={this.onChangeyear}  required={true}/>
                                     <label className="form-check-label">1st Year</label>
                                 </div>
 
@@ -203,7 +199,7 @@ export default class CreateCourse extends Component {
                                            id="semester1"
                                            value="1st"
                                            checked={this.state.semester === "1st"}
-                                           onChange={this.onChangesemester}/>
+                                           onChange={this.onChangesemester}  required={true}/>
                                     <label className="form-check-label">1st Semester</label>
                                 </div>
 
@@ -220,14 +216,13 @@ export default class CreateCourse extends Component {
 
                             </div>
                             <h6>Module Name</h6>
-                            <input type="text" className="form-control" value={this.state.module_name} onChange={this.onChangemodule}/><br/>
+                            <input type="text" className="form-control" value={this.state.module_name} onChange={this.onChangemodule} required={true}/><br/>
                             <h6>Instructor Name</h6>
-                            <input type="text" className="form-control" value={this.state.instructor} onChange={this.onChangeinstructor}/><br/>
+                            <input type="text" className="form-control" value={this.state.instructor} onChange={this.onChangeinstructor} required={true}/><br/>
                             <h6>Enrollment Key</h6>
-                            <input type="text" className="form-control" value={this.state.enroll} onChange={this.onChangeenroll}/><br/>
+                            <input type="text" className="form-control" value={this.state.enroll} onChange={this.onChangeenroll} required={true}/><br/>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}}>Save</button>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}} >Cancel</button>
-                            {/*<Route exact path="/singup" render={() => {window.location.href="Admin.jsx"}} />*/}
                         </div>
                     </form>
                 </Router>

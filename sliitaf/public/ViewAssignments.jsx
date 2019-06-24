@@ -1,18 +1,17 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import UpdateAssignment from "./UpdateAssignment";
-import CreateAssignment from './CreateAssignment';
 const Assignments = (props)=>(
     <tr>
         <td>{props.assignments.duedate}</td>
         <td>{props.assignments.file}</td>
         <td>{props.assignments.comments}</td>
         <td>
-            <Link to={"/assignment"}>Edit</Link>
+            <Link to={"/edit/"}>Edit</Link>
+
         </td>
     </tr>
-
+// <Link to={"/edit/"+props.assignments._id}>Edit</Link>
 );
 
 export default class ViewAssignments extends Component {
@@ -43,7 +42,6 @@ export default class ViewAssignments extends Component {
     render() {
         console.log(this.state);
         return(
-            <Router>
             <div>
                 <h3>Assignments List</h3>
                 <table className="table table-striped" style={{marginTop:20}}>
@@ -60,13 +58,6 @@ export default class ViewAssignments extends Component {
                     </tbody>
                 </table>
             </div>
-                <Route exact path="/edit/" render={props => {
-                    return <UpdateAssignment/>
-                }}/>
-                <Route exact path="/assignment" render={props => {
-                    return <CreateAssignment/>
-                }}/>
-            </Router>
         )
     }
 }

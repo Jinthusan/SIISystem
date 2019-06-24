@@ -10,4 +10,12 @@ router.post('/add',(req,res)=>{
     });
 });
 
+router.route('/all').get(function(req,res){
+    Controller.searchAll().then(data=>{
+        res.status(data.status).send(data.data);
+    }).catch(err=>{
+        res.status(err.status).send({message:err.message})
+    })
+});
+
 module.exports=router;

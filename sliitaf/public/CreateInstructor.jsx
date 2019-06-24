@@ -5,34 +5,33 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { useAlert, positions } from 'react-alert'
+import ReactDOM from "react-dom";
+import Login from "./CreateCourse";
 export default class CreateInstructor extends Component {
     constructor(props) {
         super(props);
-        this.onChangeinstructor_name = this.onChangeinstructor_name.bind(this);
-        this.onChangeinstructor_empno = this.onChangeinstructor_empno.bind(this);
-        this.onChangeinstructor_email = this.onChangeinstructor_email.bind(this);
         this.onChangefaculty = this.onChangefaculty.bind(this);
+        this.onChangeinstructor_name = this.onChangeinstructor_name.bind(this);
+        this.onChangeinstructor_empno = this. onChangeinstructor_empno.bind(this);
+        this.onChangeemail = this.onChangeemail.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             faculty: '',
             instructor_name: '',
-            instructor_empno: '',
-            instructor_email:''
+            email: '',
+            instructor_empno: ''
         }
-        // this.state = {
-        //     redirect: false
-        // }
-        // this.setRedirect = () => {
-        //     this.setState({
-        //         redirect: true
-        //     })
-        // }
-        // this.renderRedirect = () => {
-        //     if (this.state.redirect) {
-        //         return <Redirect to='/target' />
-        //   onClick={this.setRedirect}
-        //     }
-        // }
+    }
+
+    onChangeemail(e) {
+        this.setState({
+            email: e.target.value
+        });
+    }
+    onChangefaculty(e) {
+        this.setState({
+            faculty: e.target.value
+        });
     }
 
     onChangeinstructor_name(e) {
@@ -46,32 +45,29 @@ export default class CreateInstructor extends Component {
             instructor_empno: e.target.value});
     }
 
-    onChangeinstructor_email(e){
-        this.setState({
-            instructor_email: e.target.value});
-    }
-    onChangefaculty(e) {
-        this.setState({
-            faculty: e.target.value});
-    }
-
     onSubmit(e) {
         e.preventDefault();
         const newinstructor={
-
-            instructor_name:this.state.instructor_name,
-            instructor_empno:this.state.instructor_empno,
-            instructor_email:this.state.instructor_email,
             faculty:this.state.faculty,
-
+            instructor_name:this.state.instructor_name,
+            email:this.state.email,
+            instructor_empno:this.state.instructor_empno
         }
-        axios.post('http://localhost:8083/instructor/add',newinstructor).then(res=>console.log(res.data));
+        axios.post('http://localhost:8083/instructor/add',newinstructor).then(res=> {
+            if (res) {
+                alert('New instructor added successfully!');
+                console.log(res);
+                // ReactDOM.render(<vinstructors/>, document.getElementById('root'));
+            } else {
+                alert('Adding new instructor is failed.Please try again!');
+                return res.status(500).json({message: 'Error'});
+            }
+        });
         this.setState({
-
+            faculty: '',
             instructor_name: '',
-            instructor_empno: '',
-            instructor_email:'',
-            faculty: ''
+            email: '',
+            instructor_empno: ''
         })
 
     }
@@ -80,15 +76,15 @@ export default class CreateInstructor extends Component {
         return (
             <div style={{"marginTop": 20}}>
                 <Router>
-                    <h3>New Instructor</h3>
+                    <h4>New Instructor</h4>
                     <form onSubmit={this.onSubmit}>
                         <div className={"form-group"}>
                             <h6>Instructor Name</h6>
                             <input type="text" className="form-control" value={this.state.instructor_name} onChange={this.onChangeinstructor_name} required={true}/><br/>
                             <h6>Employee ID</h6>
                             <input type="text" className="form-control" value={this.state.instructor_empno} onChange={this.onChangeinstructor_empno} required={true}/><br/>
-                            <h6>Employee Email</h6>
-                            <input type="text" className="form-control" value={this.state.instructor_email} onChange={this.onChangeinstructor_email} required={true}/><br/>
+                            <h6>Email</h6>
+                            <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeemail} required={true}/><br/>
                             <h6>Faculty</h6>
                             <div className="form-group">
                                 <div className="form-check form-check-inline">
@@ -98,7 +94,7 @@ export default class CreateInstructor extends Component {
                                            id="computing"
                                            value="Computing"
                                            checked={this.state.faculty === "Computing"}
-                                           onChange={this.onChangefaculty}/>
+                                           onChange={this.onChangefaculty} required={true}/>
                                     <label className="form-check-label">Computing</label>
                                 </div>
 
@@ -137,7 +133,6 @@ export default class CreateInstructor extends Component {
                             </div>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}}>Save</button>
                             <button type="submit" className="btn btn-primary" style={{marginRight:'50px'}} >Cancel</button>
-                            {/*<Route exact path="/singup" render={() => {window.location.href="Admin.jsx"}} />*/}
                         </div>
                     </form>
                 </Router>
